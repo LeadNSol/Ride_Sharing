@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Ride_Sharing</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">*******</string>
+    <string name="mobile">Mobile</string>
+    <string name="register">Register</string>
+    <string name="rider_sign_up">Rider sign up</string>
+    <string name="carmodel">CarModel</string>
+    <string name="carregistrationnumber">CarRegistrationNumber</string>
+    <string name="carcolor">carColor</string>
+    <string name="current_distance_of_rider_from_all_drivers">Current distance of rider from all drivers</string>
+    <string name="driver_distance">Rider Distance</string>
+    <string name="drop_up_distance">DropUp Distance</string>
+    <string name="logout">LOGOUT</string>
+    <string name="pick_up_destination">Pick Up Destination</string>
+    <string name="map_api_key">AIzaSyAgkbasawJgXgLaIAs838J7Rjd7JsE6FZE</string>
+    <string name="login">Login</string>
+    <string name="driverDestination">Driver Destination</string>
+</resources>

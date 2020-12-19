@@ -1,0 +1,20 @@
+package com.leadnsol.ride_sharing.notification.models;
+
+public class StatusResponse {
+    public String success;
+
+    public StatusResponse() {
+    }
+
+    public StatusResponse(String success) {
+        this.success = success;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
+}

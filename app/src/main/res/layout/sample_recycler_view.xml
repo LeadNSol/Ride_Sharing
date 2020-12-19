@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="7dp"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/name"
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
+
+
+        <TextView
+            android:id="@+id/tv_carModel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/carmodel" />
+
+        <TextView
+            android:id="@+id/tv_CarRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="@string/carregistrationnumber" />
+
+        <TextView
+            android:id="@+id/tv_carColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/carcolor" />
+
+        <TextView
+            android:id="@+id/tv_driver_destination_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="@string/driverDestination" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_cdistancedriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:text="@string/driver_distance" />
+
+            <TextView
+                android:id="@+id/tv_driverDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:text="@string/drop_up_distance" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
