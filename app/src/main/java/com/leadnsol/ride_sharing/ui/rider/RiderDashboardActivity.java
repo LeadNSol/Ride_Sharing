@@ -68,10 +68,10 @@ public class RiderDashboardActivity extends AppCompatActivity implements Locatio
 
         if (mMap != null) {
             mMap.addMarker(new MarkerOptions()
-                    .position(driverCurrLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.driver))
+                    .position(driverCurrLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.driver_car))
                     .title("Driver"));
             mMap.addMarker(new MarkerOptions()
-                    .position(driverDestinationLatLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.transportation))
+                    .position(driverDestinationLatLng)
                     .title("Driver Destination"));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(driverCurrLatLng, 10));
         }
@@ -81,7 +81,7 @@ public class RiderDashboardActivity extends AppCompatActivity implements Locatio
                     LocationModel.getInstance().getRiderCurrentLocation().getLongitude());
             mMap.addMarker(new MarkerOptions()
                     .position(riderLocation)
-                    .title("Driver Destination"));
+                    .title("Me"));
         }
 
 

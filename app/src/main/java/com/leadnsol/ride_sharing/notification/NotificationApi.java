@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 public interface NotificationApi {
    @Headers({
            "Content-Type:application/json",
-           "Authorization:key=AAAARLVq4cM:APA91bHiajt2M-D_aoBujzr2R_CTJ4wYPNrLGu9dsQOTzI4S0K1VshQfeVLIzgk8EF-i9GfNBVEkDSquH3d3UVla1Dr_FWDHf7ksmTPJ67aScVaDVqkulCPEOscTMzTcSwi6RLbLnzZz"
+           "Authorization:key=AAAA3tJUmLo:APA91bFtv9AwSSfCdDTnwXoB3cBadM3-HqpTPLYCkIhl_fOpB8Nwv-CB03UYS6hd-ueqbxBsjogNVhjWPDURx6B9xzPiyq2NRtuc4DuAdKbUqZAcKDoShBP1JyhUOkurSVixu5uuwP-D"
    })
     @POST("fcm/send")
    Call<StatusResponse> sendNotification(@Body Sender sender);
