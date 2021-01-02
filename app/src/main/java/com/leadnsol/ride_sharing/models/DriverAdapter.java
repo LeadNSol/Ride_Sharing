@@ -3,6 +3,7 @@ package com.leadnsol.ride_sharing.models;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +98,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.viewHolder
 
         public void setData(User user) {
             name.setText("Name: ".concat(user.getName()));
-            carColor.setText("Car Color: "+user.getCarColor());
+            carColor.setText("Car Color: " + user.getCarColor());
             carRegistrationNumber.setText("CRN: " + user.getCarRegistrationNumber());
             carModel.setText("Car model: " + user.getCarModel());
             txtDriverDestination.setText("Driver Destination: " + user.getDriverDestinationLocation());
@@ -171,6 +172,7 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.viewHolder
                                     if (child.getKey().equalsIgnoreCase(model.getUId())) {
 
                                         Token token = child.getValue(Token.class);
+                                        Log.d("NewToken",token.getToken());
                                         Data data = new Data(rider.getUId(), body,
                                                 "Someone wants a Ride", model.getUId(), R.mipmap.ic_launcher);
                                         Sender sender = new Sender(data, token.getToken());
@@ -182,21 +184,25 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.viewHolder
                                                         if (response.isSuccessful()) {
                                                             StatusResponse statusResponse = response.body();
                                                             if (statusResponse != null) {
-                                                                Toast.makeText(context, "Request is send", Toast.LENGTH_SHORT).show();
+                                                                //Toast.makeText(context, statusResponse.success, Toast.LENGTH_SHORT).show();
 
                                                                 //saving data as appointments in d
                                                                 //      String timeStamp = String.valueOf(System.currentTimeMillis());
                                                                 //    model.setTime(timeStamp);
-                                                                RideShare rideShare = new RideShare(rider.getName(),
-                                                                        rider.getMobile(),
-                                                                        riderLocation.getLatitude()
-                                                                                + "," + riderLocation.getLongitude(),
-                                                                        dropUpLocationAddress.getLatitude()
-                                                                                + "," + dropUpLocationAddress.getLongitude());
-                                                                FirebaseDatabase.getInstance().getReference(AppConstant.SHARING_RIDE)
-                                                                        .push()
-                                                                        .setValue(rideShare);
+                                                                if (!statusResponse.success.equalsIgnoreCase("0")) {
+                                                                    RideShare rideShare = new RideShare(rider.getName(),
+                                                                            rider.getMobile(),
+                                                                            riderLocation.getLatitude()
+                                                                                    + "," + riderLocation.getLongitude(),
+                                                                            dropUpLocationAddress.getLatitude()
+                                                                                    + "," + dropUpLocationAddress.getLongitude(),rider.getUId());
+                                                                    FirebaseDatabase.getInstance().getReference(AppConstant.SHARING_RIDE)
+                                                                            .child(rider.getMobile())
+                                                                            .setValue(rideShare);
+                                                                }else{
+                                                                    Toast.makeText(context, statusResponse.success, Toast.LENGTH_SHORT).show();
 
+                                                                }
                                                             }
                                                         }
                                                     }

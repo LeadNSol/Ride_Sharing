@@ -2,16 +2,25 @@ package com.leadnsol.ride_sharing.models;
 
 public class RideShare {
 
-    private String riderName, riderPhone, riderLocation, riderDestination;
+    private String riderName, riderPhone, riderLocation, riderDestination,riderID;
 
     public RideShare() {
     }
 
-    public RideShare(String riderName, String riderPhone, String riderLocation, String riderDestination) {
+    public RideShare(String riderName, String riderPhone, String riderLocation, String riderDestination,String riderID) {
         this.riderName = riderName;
         this.riderPhone = riderPhone;
         this.riderLocation = riderLocation;
         this.riderDestination = riderDestination;
+        this.riderID = riderID;
+    }
+
+    public String getRiderID() {
+        return riderID;
+    }
+
+    public void setRiderID(String riderID) {
+        this.riderID = riderID;
     }
 
     public String getRiderName() {

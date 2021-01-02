@@ -61,7 +61,9 @@ public class DriverSignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             signUp();
                         }
-                    });
+                    }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
 
 
         }

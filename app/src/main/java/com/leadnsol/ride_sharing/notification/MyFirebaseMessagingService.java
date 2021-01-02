@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.leadnsol.ride_sharing.app_common.AppConstant;
@@ -27,17 +29,26 @@ import com.leadnsol.ride_sharing.ui.driver.DriverDashboardActivity;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    private final String CHANNEL_ID = "Saloon_channel";
+    private final String CHANNEL_ID = "RIDESHaring_channel";
 
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
+        Log.d("New Token",s);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseInstallations.getInstance().getToken(true).addOnSuccessListener(instanceIdResult -> {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful())
+                return;
+            updateToken(task.getResult(),user);
+            Log.d("New Token",task.getResult());
+        });
+
+        /*FirebaseInstallations.getInstance().getToken(true).addOnSuccessListener(instanceIdResult -> {
             String newToken = instanceIdResult.getToken();
             if (user != null)
                 updateToken(newToken, user);
-        });
+        });*/
     }
 
     private void updateToken(String newToken, FirebaseUser user) {

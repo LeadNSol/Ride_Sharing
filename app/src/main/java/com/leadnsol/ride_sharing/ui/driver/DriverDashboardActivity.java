@@ -50,6 +50,7 @@ public class DriverDashboardActivity extends AppCompatActivity implements Locati
     // The fastest rate for active location updates. Exact. Updates will never be more frequent than this value.
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
+    private String notificationMapIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +70,11 @@ public class DriverDashboardActivity extends AppCompatActivity implements Locati
             getActionBar().setTitle(mUser.getUserType());
 
         if (getIntent() != null) {
-            String notification = getIntent().getStringExtra("Notification");
-            if (notification!=null && notification.equalsIgnoreCase(AppConstant.DRIVER)) {
+            notificationMapIntent = getIntent().getStringExtra("Notification");
+            if (notificationMapIntent != null) {
                 populateRideShareOfRiderOnMap();
             }
+            //Toast.makeText(this, notification, Toast.LENGTH_SHORT).show();
         }
 
         mLocationUpdate = LocationUpdate.getInstance(this);
@@ -91,7 +93,7 @@ public class DriverDashboardActivity extends AppCompatActivity implements Locati
                 if (snapshot.exists()) {
                     for (DataSnapshot child : snapshot.getChildren()) {
                         RideShare rideShare = child.getValue(RideShare.class);
-                        if (rideShare != null) {
+                        if (rideShare != null && rideShare.getRiderID().equalsIgnoreCase(notificationMapIntent)) {
                             String[] value = rideShare.getRiderLocation().split(",");
                             String[] valueDest = rideShare.getRiderDestination().split(",");
                             LatLng latLng = new LatLng(Double.parseDouble(value[0]), Double.parseDouble(value[1]));
@@ -101,7 +103,7 @@ public class DriverDashboardActivity extends AppCompatActivity implements Locati
                             LatLng destinationLatLng = new LatLng(Double.parseDouble(valueDest[0]), Double.parseDouble(valueDest[1]));
                             mMap.addMarker(new MarkerOptions()
                                     .position(destinationLatLng)
-                                    .title("RiderLocation"));
+                                    .title("RiderDestination"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                         }
                     }
@@ -117,6 +119,7 @@ public class DriverDashboardActivity extends AppCompatActivity implements Locati
 
 
     private GoogleMap mMap;
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -19,8 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.installations.FirebaseInstallations;
-import com.google.firebase.installations.InstallationTokenResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.leadnsol.ride_sharing.R;
 import com.leadnsol.ride_sharing.app_common.AppConstant;
@@ -67,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            signIn(email,password);
+                            signIn(email, password);
                         }
                     });
 
@@ -75,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void signIn(String email,String password) {
+    private void signIn(String email, String password) {
         dbRef.orderByChild("email").equalTo(email).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -124,9 +122,15 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        Task<InstallationTokenResult> token = FirebaseInstallations.getInstance().getToken(true);
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful())
+                return;
+            updateToken(task.getResult());
+        });
+
+        /*Task<InstallationTokenResult> token = FirebaseInstallations.getInstance().getToken(true);
         token.addOnSuccessListener(instanceIdResult ->
-                updateToken(instanceIdResult.getToken()));
+                updateToken(instanceIdResult.getToken()));*/
     }
 
     private void updateToken(String newToken) {
